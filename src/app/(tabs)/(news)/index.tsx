@@ -4,6 +4,7 @@ export default function News() {
   return (
     <View style={styles.container}>
       <Text>News</Text>
+      <Text>Important news</Text>
     </View>
   );
 }
