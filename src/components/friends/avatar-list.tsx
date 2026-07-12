@@ -1,5 +1,5 @@
 import { FlatList, Pressable, StyleSheet } from 'react-native';
-import { Avatar, Text, useTheme } from 'react-native-paper';
+import { MD3Theme, Avatar, Text, useTheme } from 'react-native-paper';
 
 export type FriendAvatarItem = {
   id: string;
@@ -10,6 +10,7 @@ export type FriendAvatarItem = {
 type AvatarListProps = {
   data: FriendAvatarItem[];
   onPressItem?: (item: FriendAvatarItem) => void;
+  theme: MD3Theme;
 };
 
 function getInitials(name: string) {

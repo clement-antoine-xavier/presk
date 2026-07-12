@@ -1,7 +1,7 @@
-import { withTheme } from 'react-native-paper';
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { MD3Theme, withTheme } from 'react-native-paper';
 
-function News({ theme }) {
+function News({ theme }: { theme: MD3Theme }) {
   return (
     <View style={styles.container}>
       <Text>News</Text>
