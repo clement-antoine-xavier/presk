@@ -1,6 +1,7 @@
+import { withTheme } from 'react-native-paper';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function News() {
+function News({ theme }) {
   return (
     <View style={styles.container}>
       <Text>News</Text>
@@ -16,3 +17,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default withTheme(News);
