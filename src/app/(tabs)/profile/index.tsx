@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { MD3Theme, withTheme } from 'react-native-paper';
 
-export default function Profile() {
+function Profile({ theme }: { theme: MD3Theme }) {
   return (
     <View style={styles.container}>
       <Text>Profile</Text>
@@ -15,3 +16,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default withTheme(Profile);
