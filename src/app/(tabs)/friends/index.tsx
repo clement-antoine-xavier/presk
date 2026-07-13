@@ -1,23 +1,34 @@
+import { useForm, useWatch } from 'react-hook-form';
 import { SectionList, StyleSheet, View } from 'react-native';
 import { MD3Theme, Text, withTheme } from 'react-native-paper';
 
+import { ControlledSearchbar } from '@/components/form/controlled-searchbar';
 import { AvatarList } from '@/components/friends/avatar-list';
 import { ConversationListItem } from '@/components/friends/conversation-list-item';
 
-import { friends } from '@/constants/friends';
 import { conversations } from '@/constants/conversations';
+import { friends } from '@/constants/friends';
+import { useFilteredConversationSections } from '@/features/friends/hooks/use-filtered-conversation-sections';
 
-const sections = [
-  {
-    title: 'Conversations',
-    data: conversations.map((item) => ({
-      type: 'conversation' as const,
-      data: item,
-    })),
-  },
-];
+type FriendsFormValues = {
+  search: string;
+};
 
 function Friends({ theme }: { theme: MD3Theme }) {
+  const { control } = useForm<FriendsFormValues>({
+    defaultValues: {
+      search: '',
+    },
+  });
+
+  const search = useWatch({
+    control,
+    name: 'search',
+    defaultValue: '',
+  });
+
+  const sections = useFilteredConversationSections(conversations, search);
+
   return (
     <SectionList
       sections={sections}
@@ -28,6 +39,14 @@ function Friends({ theme }: { theme: MD3Theme }) {
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={
         <View style={styles.headerBlock}>
+          <ControlledSearchbar
+            control={control}
+            name="search"
+            placeholder="Search friends"
+            style={styles.searchbar}
+            inputStyle={styles.searchbarInput}
+          />
+
           <Text
             variant="titleMedium"
             style={[styles.sectionTitle, { color: theme.colors.onSurface }]}
@@ -46,28 +65,42 @@ function Friends({ theme }: { theme: MD3Theme }) {
       renderSectionHeader={({ section }) => (
         <Text
           variant="titleMedium"
-          style={[styles.sectionTitle, styles.conversationHeader, { color: theme.colors.onSurface }]}
+          style={[
+            styles.sectionTitle,
+            styles.conversationHeader,
+            { color: theme.colors.onSurface },
+          ]}
         >
           {section.title}
         </Text>
       )}
       renderItem={({ item }) => {
-        if (item.type === 'conversation') {
-          return (
-            <View style={styles.rowWrapper}>
-              <ConversationListItem
-                item={item.data}
-                onPress={(conversation) => {
-                  console.log('conversation pressed', conversation);
-                }}
-              />
-            </View>
-          );
+        if (item.type !== 'conversation') {
+          return null;
         }
 
-        return null;
+        return (
+          <View style={styles.rowWrapper}>
+            <ConversationListItem
+              item={item.data}
+              onPress={(conversation) => {
+                console.log('conversation pressed', conversation);
+              }}
+            />
+          </View>
+        );
       }}
-      ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+      ItemSeparatorComponent={() => <View style={styles.separator} />}
+      ListEmptyComponent={
+        <Text
+          style={[
+            styles.emptyText,
+            { color: theme.colors.onSurfaceVariant },
+          ]}
+        >
+          No conversations found
+        </Text>
+      }
     />
   );
 }
@@ -83,6 +116,13 @@ const styles = StyleSheet.create({
   headerBlock: {
     marginBottom: 24,
   },
+  searchbar: {
+    marginHorizontal: 16,
+    marginBottom: 16,
+  },
+  searchbarInput: {
+    minHeight: 0,
+  },
   sectionTitle: {
     marginHorizontal: 16,
     marginBottom: 8,
@@ -92,6 +132,13 @@ const styles = StyleSheet.create({
   },
   rowWrapper: {
     paddingHorizontal: 16,
+  },
+  separator: {
+    height: 12,
+  },
+  emptyText: {
+    marginHorizontal: 16,
+    marginTop: 8,
   },
 });
 
