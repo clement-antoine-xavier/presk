@@ -1,5 +1,11 @@
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Avatar, Surface, Text, useTheme } from 'react-native-paper';
+import {
+  Avatar,
+  IconButton,
+  Surface,
+  Text,
+  useTheme,
+} from 'react-native-paper';
 
 export type ConversationParticipant = {
   id: string;
@@ -18,6 +24,7 @@ export type ConversationItem = {
 type ConversationListItemProps = {
   item: ConversationItem;
   onPress?: (item: ConversationItem) => void;
+  onCameraPress?: (item: ConversationItem) => void;
 };
 
 function getInitials(name: string) {
@@ -85,6 +92,7 @@ function ConversationAvatar({ item }: { item: ConversationItem }) {
 export function ConversationListItem({
   item,
   onPress,
+  onCameraPress,
 }: ConversationListItemProps) {
   const theme = useTheme();
 
@@ -119,6 +127,18 @@ export function ConversationListItem({
             {item.latestMessage}
           </Text>
         </View>
+
+        <IconButton
+          icon="camera-outline"
+          size={22}
+          mode="contained-tonal"
+          iconColor={theme.colors.primary}
+          containerColor={theme.colors.secondaryContainer}
+          onPress={(event) => {
+            event.stopPropagation();
+            onCameraPress?.(item);
+          }}
+        />
       </Surface>
     </Pressable>
   );
