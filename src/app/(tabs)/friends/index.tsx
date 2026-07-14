@@ -86,6 +86,9 @@ function Friends({ theme }: { theme: MD3Theme }) {
               onPress={(conversation) => {
                 console.log('conversation pressed', conversation);
               }}
+              onCameraPress={(conversation) => {
+                console.log('camera pressed', conversation);
+              }}
             />
           </View>
         );

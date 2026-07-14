@@ -1,22 +1,26 @@
-# AGENTS.md
+# Presk Agent Instructions
 
-## Framework
+## Project Overview
+Expo (React Native) app using Expo Router and Supabase.
 
-- **Expo v57.0.x**: Refer to <https://docs.expo.dev/versions/v57.0.0/>.
-- **Routing**: Expo Router (file-based) in `src/app/`.
-- **Styling/UI**: Uses `@expo/ui` and `react-native-paper`.
+## Developer Commands
+- `npm run start`: Start dev server
+- `npm run android`: Start on Android
+- `npm run ios`: Start on iOS
+- `npm run web`: Start on Web
+- `npm run lint`: Run ESLint
+- `npm run reset-project`: Reset project via script
 
-## Commands
+## Architecture & Conventions
+- **Routing**: File-based routing via `src/app` (Expo Router).
+- **Structure**: 
+  - `src/app`: Routes and layouts.
+  - `src/components`: Shared UI components.
+  - `src/features`: Feature-specific logic (hooks, utils).
+  - `src/constants`: App-wide constants and theme.
+- **Backend**: Supabase integration (config in `/supabase`).
+- **Styling**: Uses `@expo/ui` and standard React Native components.
 
-- `npm run start`: Start dev server.
-- `npm run android` / `ios` / `web`: Platform-specific start.
-- `npm run lint`: Run `expo lint`.
-
-## Architecture
-
-- `src/app/`: Routes, layouts, and screens.
-- `src/constants/`: Theme and global constants.
-
-## Verification
-
-- Run `npm run lint` after changes.
+## Verification Flow
+- Run `npm run lint` before submitting changes.
+- Use `expo start` to verify UI changes in a simulator/device.
