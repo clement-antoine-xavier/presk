@@ -7,7 +7,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="(news)"
         options={{
-          title: 'News',
+          headerShown: false,
           tabBarIcon: ({ focused, color, size, }) =>
             <MaterialDesignIcons name={focused ? "newspaper-variant" : "newspaper-variant-outline"} color={color} size={size} />
         }}
@@ -15,7 +15,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="discover"
         options={{
-          title: 'Discover',
+          headerShown: false,
           tabBarIcon: ({ focused, color, size, }) =>
             <MaterialDesignIcons name={focused ? "compass" : "compass-outline"} color={color} size={size} />
         }}
@@ -23,7 +23,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="friends"
         options={{
-          title: 'Friends',
+          headerShown: false,
           tabBarIcon: ({ focused, color, size, }) =>
             <MaterialDesignIcons name={focused ? "account-multiple" : "account-multiple-outline"} color={color} size={size} />
         }}
@@ -31,7 +31,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="communities"
         options={{
-          title: 'Communities',
+          headerShown: false,
           tabBarIcon: ({ focused, color, size, }) =>
             <MaterialDesignIcons name={focused ? "account-group" : "account-group-outline"} color={color} size={size} />
         }}
@@ -39,7 +39,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          headerShown: false,
           tabBarIcon: ({ focused, color, size, }) =>
             <MaterialDesignIcons name={focused ? "account" : "account-outline"} color={color} size={size} />
         }}

@@ -1,36 +1,21 @@
 import { FlatList, Pressable, StyleSheet } from 'react-native';
-import { MD3Theme, Avatar, Text, useTheme } from 'react-native-paper';
+import { MD3Theme, Text } from 'react-native-paper';
 
-export type FriendAvatarItem = {
-  id: string;
-  name: string;
-  photoUrl?: string;
-};
+import { UserAvatar } from './person-avatar';
+import { UserItem } from './types';
 
 type AvatarListProps = {
-  data: FriendAvatarItem[];
-  onPressItem?: (item: FriendAvatarItem) => void;
+  data: UserItem[];
+  onPressItem?: (item: UserItem) => void;
   theme: MD3Theme;
 };
 
-function getInitials(name: string) {
-  return name
-    .trim()
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-}
-
 export function AvatarList({ data, onPressItem }: AvatarListProps) {
-  const theme = useTheme();
-
   return (
     <FlatList
       horizontal
       data={data}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.user_id}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.contentContainer}
       renderItem={({ item }) => (
@@ -39,21 +24,12 @@ export function AvatarList({ data, onPressItem }: AvatarListProps) {
           style={styles.item}
           hitSlop={8}
         >
-          {item.photoUrl ? (
-            <Avatar.Image size={56} source={{ uri: item.photoUrl }} />
-          ) : (
-            <Avatar.Text
-              size={56}
-              label={getInitials(item.name)}
-              style={{ backgroundColor: theme.colors.primary }}
-              color={theme.colors.onPrimary}
-            />
-          )}
+          <UserAvatar user={item} size={56} />
 
           <Text
             variant="labelMedium"
             numberOfLines={1}
-            style={[styles.name, { color: theme.colors.onSurface }]}
+            style={styles.name}
           >
             {item.name}
           </Text>

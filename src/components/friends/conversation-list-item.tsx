@@ -1,25 +1,8 @@
 import { Pressable, StyleSheet, View } from 'react-native';
-import {
-  Avatar,
-  IconButton,
-  Surface,
-  Text,
-  useTheme,
-} from 'react-native-paper';
+import { IconButton, Surface, Text, useTheme } from 'react-native-paper';
 
-export type ConversationParticipant = {
-  id: string;
-  name: string;
-  avatarUrl?: string;
-};
-
-export type ConversationItem = {
-  id: string;
-  title: string;
-  latestMessage: string;
-  isGroup?: boolean;
-  participants: ConversationParticipant[];
-};
+import { PersonAvatar } from './person-avatar';
+import { ConversationItem } from './types';
 
 type ConversationListItemProps = {
   item: ConversationItem;
@@ -27,48 +10,13 @@ type ConversationListItemProps = {
   onCameraPress?: (item: ConversationItem) => void;
 };
 
-function getInitials(name: string) {
-  return name
-    .trim()
-    .split(' ')
-    .map((part) => part[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-}
-
-function PersonAvatar({
-  name,
-  avatarUrl,
-  size,
-}: {
-  name: string;
-  avatarUrl?: string;
-  size: number;
-}) {
-  const theme = useTheme();
-
-  if (avatarUrl) {
-    return <Avatar.Image size={size} source={{ uri: avatarUrl }} />;
-  }
-
-  return (
-    <Avatar.Text
-      size={size}
-      label={getInitials(name)}
-      style={{ backgroundColor: theme.colors.primary }}
-      color={theme.colors.onPrimary}
-    />
-  );
-}
-
 function ConversationAvatar({ item }: { item: ConversationItem }) {
-  if (!item.isGroup || item.participants.length <= 1) {
+  if (!item.is_group || item.participants.length <= 1) {
     const person = item.participants[0];
     return (
       <PersonAvatar
         name={person?.name ?? item.title}
-        avatarUrl={person?.avatarUrl}
+        avatar_url={person?.avatar_url}
         size={52}
       />
     );
@@ -80,10 +28,10 @@ function ConversationAvatar({ item }: { item: ConversationItem }) {
   return (
     <View style={styles.groupAvatar}>
       <View style={styles.groupAvatarBack}>
-        <PersonAvatar name={second.name} avatarUrl={second.avatarUrl} size={34} />
+        <PersonAvatar name={second.name} avatar_url={second.avatar_url} size={34} />
       </View>
       <View style={styles.groupAvatarFront}>
-        <PersonAvatar name={first.name} avatarUrl={first.avatarUrl} size={34} />
+        <PersonAvatar name={first.name} avatar_url={first.avatar_url} size={34} />
       </View>
     </View>
   );
@@ -124,7 +72,7 @@ export function ConversationListItem({
             numberOfLines={1}
             style={{ color: theme.colors.onSurfaceVariant }}
           >
-            {item.latestMessage}
+            {item.latest_message}
           </Text>
         </View>
 

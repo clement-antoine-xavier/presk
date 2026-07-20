@@ -1,58 +1,58 @@
-import { ConversationItem } from '@/components/friends/conversation-list-item';
+import { ConversationItem } from '@/components/friends/types';
 
 export const conversations: ConversationItem[] = [
   {
-    id: '1',
+    conversation_id: '1',
     title: 'Alice Kim',
-    latestMessage: 'Are you free tonight?',
-    participants: [{ id: '1', name: 'Alice Kim', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-1` }],
+    latest_message: 'Yes, what time?',
+    participants: [{ participant_id: 'p1', user_id: '1', name: 'Alice Kim', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-1' }],
   },
   {
-    id: '2',
+    conversation_id: '2',
     title: 'Weekend Trip',
-    latestMessage: 'I uploaded the photos from yesterday.',
-    isGroup: true,
+    latest_message: 'They look great!',
+    is_group: true,
     participants: [
-      { id: '2', name: 'Ben Park', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-2` },
-      { id: '3', name: 'Chloe Martin', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-3` },
+      { participant_id: 'p2', user_id: '2', name: 'Ben Park', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-2' },
+      { participant_id: 'p3', user_id: '3', name: 'Chloe Martin', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-3' },
     ],
   },
   {
-    id: '3',
+    conversation_id: '3',
     title: 'David Lee',
-    latestMessage: 'Let’s continue the conversation tomorrow.',
+    latest_message: "Let's continue the conversation tomorrow.",
     participants: [
-      { id: '4', name: 'David Lee', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-4` }
+      { participant_id: 'p4', user_id: '4', name: 'David Lee', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-4' },
     ],
   },
   {
-    id: '4',
+    conversation_id: '4',
     title: 'Emma Sun',
-    latestMessage: 'I’ll send you the details later.',
-    participants: [{ id: '5', name: 'Emma Sun', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-5` }],
+    latest_message: "I'll send you the details later.",
+    participants: [{ participant_id: 'p5', user_id: '5', name: 'Emma Sun', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-5' }],
   },
   {
-    id: '5',
+    conversation_id: '5',
     title: 'Frank Wilson',
-    latestMessage: 'Thanks for your help!',
-    participants: [{ id: '6', name: 'Frank Wilson', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-6` }],
+    latest_message: 'Thanks for your help!',
+    participants: [{ participant_id: 'p6', user_id: '6', name: 'Frank Wilson', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-6' }],
   },
   {
-    id: '6',
+    conversation_id: '6',
     title: 'Grace Chen',
-    latestMessage: 'See you at the meeting!',
-    participants: [{ id: '7', name: 'Grace Chen', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-7` }],
+    latest_message: 'See you at the meeting!',
+    participants: [{ participant_id: 'p7', user_id: '7', name: 'Grace Chen', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-7' }],
   },
   {
-    id: '7',
+    conversation_id: '7',
     title: 'Henry Adams',
-    latestMessage: 'I’ll be there in 10 minutes.',
-    participants: [{ id: '8', name: 'Henry Adams', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-8` }],
+    latest_message: "I'll be there in 10 minutes.",
+    participants: [{ participant_id: 'p8', user_id: '8', name: 'Henry Adams', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-8' }],
   },
   {
-    id: '8',
+    conversation_id: '8',
     title: 'Isabella Brown',
-    latestMessage: 'Can you review this document?',
-    participants: [{ id: '9', name: 'Isabella Brown', avatarUrl: `https://api.dicebear.com/10.x/big-smile/png?seed=user-9` }],
+    latest_message: 'Can you review this document?',
+    participants: [{ participant_id: 'p9', user_id: '9', name: 'Isabella Brown', avatar_url: 'https://api.dicebear.com/10.x/big-smile/png?seed=user-9' }],
   },
 ];

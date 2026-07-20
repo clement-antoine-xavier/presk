@@ -9,12 +9,15 @@ import { ConversationListItem } from '@/components/friends/conversation-list-ite
 import { conversations } from '@/constants/conversations';
 import { friends } from '@/constants/friends';
 import { useFilteredConversationSections } from '@/features/friends/hooks/use-filtered-conversation-sections';
+import { useRouter } from 'expo-router';
 
 type FriendsFormValues = {
   search: string;
 };
 
 function Friends({ theme }: { theme: MD3Theme }) {
+  const router = useRouter();
+
   const { control } = useForm<FriendsFormValues>({
     defaultValues: {
       search: '',
@@ -32,7 +35,7 @@ function Friends({ theme }: { theme: MD3Theme }) {
   return (
     <SectionList
       sections={sections}
-      keyExtractor={(item) => item.data.id}
+      keyExtractor={(item) => item.data.conversation_id}
       style={[styles.screen, { backgroundColor: theme.colors.background }]}
       contentContainerStyle={styles.contentContainer}
       stickySectionHeadersEnabled={false}
@@ -57,7 +60,10 @@ function Friends({ theme }: { theme: MD3Theme }) {
           <AvatarList
             data={friends}
             onPressItem={(friend) => {
-              console.log('friend pressed', friend);
+              router.push({
+                pathname: '/friends/conversation',
+                params: { id: friend.user_id },
+              });
             }}
           />
         </View>
@@ -84,10 +90,16 @@ function Friends({ theme }: { theme: MD3Theme }) {
             <ConversationListItem
               item={item.data}
               onPress={(conversation) => {
-                console.log('conversation pressed', conversation);
+                router.push({
+                  pathname: '/friends/conversation',
+                  params: { id: conversation.conversation_id },
+                });
               }}
               onCameraPress={(conversation) => {
-                console.log('camera pressed', conversation);
+                router.push({
+                  pathname: '/friends/conversation',
+                  params: { id: conversation.conversation_id },
+                });
               }}
             />
           </View>

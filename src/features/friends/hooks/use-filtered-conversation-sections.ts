@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { ConversationItem } from '@/components/friends/conversation-list-item';
+import { ConversationItem } from '@/components/friends/types';
 
 import { filterConversations } from '@/features/friends/utils/filter-conversations';
 

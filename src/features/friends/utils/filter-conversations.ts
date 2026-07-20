@@ -1,4 +1,4 @@
-import { ConversationItem } from '@/components/friends/conversation-list-item';
+import { ConversationItem } from '@/components/friends/types';
 
 export function filterConversations(
   items: ConversationItem[],
@@ -13,11 +13,7 @@ export function filterConversations(
   return items.filter((item) => {
     const participantNames = item.participants.map((p) => p.name).join(' ');
 
-    const haystack = [
-      item.title,
-      item.latestMessage,
-      participantNames,
-    ]
+    const haystack = [item.title, item.latest_message, participantNames]
       .filter(Boolean)
       .join(' ')
       .toLowerCase();
