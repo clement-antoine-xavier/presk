@@ -1,15 +1,20 @@
 import { Redirect } from 'expo-router';
 
+import { useAuthContext } from '@/features/auth/components/auth-provider';
 import { routes } from '@/lib/routes';
 
 /**
  * Central entry point for the app.
  *
- * In the future this is where you would decide between onboarding,
- * authenticated app routes, and auth routes based on session state.
- *
- * For now we redirect authenticated users straight to the main app.
+ * Redirects authenticated users to the main app and unauthenticated users
+ * to the sign-in flow.
  */
 export default function Index() {
-  return <Redirect href={routes.conversations} />;
+  const { isAuthenticated, isLoading } = useAuthContext();
+
+  if (isLoading) {
+    return null;
+  }
+
+  return <Redirect href={isAuthenticated ? routes.conversations : routes.signIn} />;
 }

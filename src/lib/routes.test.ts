@@ -5,6 +5,8 @@ describe('routes', () => {
     expect(routes.signIn).toBe('/(auth)/sign-in');
     expect(routes.signUp).toBe('/(auth)/sign-up');
     expect(routes.resetPassword).toBe('/(auth)/reset-password');
+    expect(routes.checkEmail).toBe('/(auth)/check-email');
+    expect(routes.updatePassword).toBe('/(modals)/update-password');
   });
 
   it('exports static conversation routes', () => {

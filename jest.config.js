@@ -3,6 +3,7 @@ const { resolve } = require('path');
 /** @type {import('jest').Config} */
 module.exports = {
   preset: 'jest-expo',
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   moduleNameMapper: {
     '^@/(.*)$': resolve(__dirname, './src/$1'),

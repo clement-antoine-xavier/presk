@@ -4,6 +4,8 @@ export const routes = {
   signIn: '/(auth)/sign-in' as Href,
   signUp: '/(auth)/sign-up' as Href,
   resetPassword: '/(auth)/reset-password' as Href,
+  checkEmail: '/(auth)/check-email' as Href,
+  updatePassword: '/(modals)/update-password' as Href,
   conversations: '/(app)/(tabs)/conversations' as Href,
   conversation: (id: string) =>
     `/(app)/(tabs)/conversations/conversation?id=${id}` as Href,

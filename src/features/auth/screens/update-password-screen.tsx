@@ -1,81 +1,72 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, HelperText, MD3Theme, Text, withTheme } from 'react-native-paper';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 
 import { ControlledTextInput } from '@/components/ui/controlled-text-input';
 import { routes } from '@/lib/routes';
+import { supabase } from '@/services/supabase';
 
 import { useAuth } from '../hooks/use-auth';
-import { signUpSchema, type SignUpFormData } from '../schemas/auth-schema';
+import { updatePasswordSchema, type UpdatePasswordFormData } from '../schemas/auth-schema';
 
-function SignUpScreen({ theme }: { theme: MD3Theme }) {
+function UpdatePasswordScreen({ theme }: { theme: MD3Theme }) {
   const router = useRouter();
-  const { signUp, error, clearError } = useAuth();
+  const params = useLocalSearchParams();
+  const { updatePassword, signOut, error, clearError } = useAuth();
 
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpFormData>({
-    resolver: zodResolver(signUpSchema),
+  } = useForm<UpdatePasswordFormData>({
+    resolver: zodResolver(updatePasswordSchema),
     defaultValues: {
-      email: '',
       password: '',
       confirmPassword: '',
-      displayName: '',
     },
   });
 
+  useEffect(() => {
+    const code = typeof params.code === 'string' ? params.code : undefined;
+    if (code) {
+      supabase.auth.exchangeCodeForSession(code).catch(() => {
+        // The deep-link code exchange is best-effort. If it fails the user
+        // can still sign in again from the auth flow.
+      });
+    }
+  }, [params.code]);
+
   const onSubmit = useCallback(
-    async (data: SignUpFormData) => {
+    async (data: UpdatePasswordFormData) => {
       clearError();
-      await signUp(data);
-      router.replace(routes.checkEmail);
+      await updatePassword(data);
+      await signOut();
+      router.replace(routes.signIn);
     },
-    [clearError, signUp, router]
+    [clearError, updatePassword, signOut, router]
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
         <Text variant="headlineMedium" style={{ color: theme.colors.onSurface }}>
-          Sign Up
+          Update Password
+        </Text>
+
+        <Text style={{ color: theme.colors.onSurfaceVariant }}>
+          Choose a new password for your account.
         </Text>
 
         <ControlledTextInput
           control={control}
-          name="displayName"
-          label="Display name"
-          autoComplete="name"
-          testID="sign-up-display-name"
-        />
-        {errors.displayName && (
-          <HelperText type="error">{errors.displayName.message}</HelperText>
-        )}
-
-        <ControlledTextInput
-          control={control}
-          name="email"
-          label="Email"
-          autoCapitalize="none"
-          keyboardType="email-address"
-          autoComplete="email"
-          testID="sign-up-email"
-        />
-        {errors.email && (
-          <HelperText type="error">{errors.email.message}</HelperText>
-        )}
-
-        <ControlledTextInput
-          control={control}
           name="password"
-          label="Password"
+          label="New password"
           secureTextEntry
           autoComplete="new-password"
-          testID="sign-up-password"
+          testID="update-password"
         />
         {errors.password && (
           <HelperText type="error">{errors.password.message}</HelperText>
@@ -84,10 +75,10 @@ function SignUpScreen({ theme }: { theme: MD3Theme }) {
         <ControlledTextInput
           control={control}
           name="confirmPassword"
-          label="Confirm password"
+          label="Confirm new password"
           secureTextEntry
           autoComplete="new-password"
-          testID="sign-up-confirm-password"
+          testID="update-confirm-password"
         />
         {errors.confirmPassword && (
           <HelperText type="error">{errors.confirmPassword.message}</HelperText>
@@ -100,17 +91,9 @@ function SignUpScreen({ theme }: { theme: MD3Theme }) {
           onPress={handleSubmit(onSubmit)}
           loading={isSubmitting}
           disabled={isSubmitting}
-          testID="sign-up-submit"
+          testID="update-password-submit"
         >
-          Sign Up
-        </Button>
-
-        <Button
-          mode="text"
-          onPress={() => router.push(routes.signIn)}
-          testID="sign-up-to-sign-in"
-        >
-          Already have an account? Sign in
+          Update Password
         </Button>
       </View>
     </View>
@@ -128,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withTheme(SignUpScreen);
+export default withTheme(UpdatePasswordScreen);
