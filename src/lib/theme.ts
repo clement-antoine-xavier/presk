@@ -3,7 +3,7 @@ import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
   Theme as NavigationTheme,
-} from '@react-navigation/native';
+} from "expo-router/react-navigation";
 import {
   MD3DarkTheme,
   MD3LightTheme,
